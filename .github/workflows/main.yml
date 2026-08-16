@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   Build:
@@ -11,7 +14,9 @@ jobs:
 
     steps:
       - name: Code checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Maven Build
         run: mvn install
@@ -22,7 +27,9 @@ jobs:
 
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Run tests on main branch
         run: mvn test
@@ -31,3 +38,5 @@ jobs:
         run: mvn checkstyle:checkstyle
 
         
+
+
