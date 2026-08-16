@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v45
 
       - name: Run tests on main branch
-        run: mvn test
+        run: mvan test
 
       - name: Checkstyle
         run: mvn checkstyle:checkstyle
