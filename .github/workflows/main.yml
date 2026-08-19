@@ -67,7 +67,7 @@ jobs:
           fetch-depth: 0
       
       - name: Run Trivy filesystem scan
-        uses: aquasecurity/trivy-action@v0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
@@ -75,6 +75,8 @@ jobs:
           exit-code: 0
           vuln-type: os,library
           output: trivy-results.json
+
+
       - name: Upload Trivy scan results as artifact
         uses: actions/upload-artifact@v4
         with:
