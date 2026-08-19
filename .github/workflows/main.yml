@@ -83,6 +83,32 @@ jobs:
           name: trivy-scan-results
           path: trivy-results.json
           
+  BUILD_AND_PUBLISH:
+    name: BUILD_AND_PUBLISH
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [Build,Testing,Security_Scan]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: bnjmn034/vprofileapp:latest
+
+
 
 
 
